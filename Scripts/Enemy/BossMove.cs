@@ -13,11 +13,11 @@ public class BossMove : MonoBehaviour
     [SerializeField] Image hpBar;
 
     public float enemySpeed = 5f;
-    public float chaseRange = 20f;
+    public float chaseRange = 30f;
     public float targetDistance;
     public float currentTime;
     public float dizzyTime;
-    public float enemy_hp = 100;
+    public float enemy_hp = 50;
     
     void Start()
     {
@@ -28,7 +28,7 @@ public class BossMove : MonoBehaviour
 
     void Update()
     {
-        hpBar.fillAmount = enemy_hp / 100; 
+        hpBar.fillAmount = enemy_hp / 50; 
         targetDistance = Vector3.Distance(transform.position, target.position);
         if(targetDistance < chaseRange)
         {
@@ -46,10 +46,11 @@ public class BossMove : MonoBehaviour
         if(targetDistance < nav.stoppingDistance)
         {
             currentTime += Time.deltaTime;
-            if(currentTime >= 5f)
+            if(currentTime >= 3f)
             {
-                Rigidbody newBall = (Rigidbody)Instantiate(ball, transform.position, transform.rotation);
-                newBall.AddForce(-target.forward * 3f);
+                Vector3 attack = new Vector3(0,0.5f,1f);
+                Rigidbody newBall = (Rigidbody)Instantiate(ball, transform.position + attack, transform.rotation);
+                newBall.AddForce(transform.forward * 10f, ForceMode.Impulse);
                 currentTime = 0;
             }
         }

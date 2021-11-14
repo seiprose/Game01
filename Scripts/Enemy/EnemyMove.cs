@@ -65,6 +65,7 @@ public class EnemyMove : MonoBehaviour
     void Damage(float damage)
     {
         enemy_hp -= damage;
+        chaseRange = Mathf.Infinity;
     }
 
     void OnTriggerEnter(Collider other)
